@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.asofterspace.enlightenment.MainActivity">
+
+    <TextView
+        android:id="@+id/tWohnzimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Wohnzimmer:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Off"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+
+    <Button
+        android:id="@+id/bDim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Dim"
+        app:layout_constraintStart_toEndOf="@+id/bOff"
+        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+
+    <Button
+        android:id="@+id/bPurple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Purple"
+        app:layout_constraintStart_toEndOf="@+id/bDim"
+        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+
+    <Button
+        android:id="@+id/bMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Max"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bPurple"
+        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+
+</android.support.constraint.ConstraintLayout>
