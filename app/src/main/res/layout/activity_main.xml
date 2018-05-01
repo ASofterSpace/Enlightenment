@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bOff"
+        android:id="@+id/bWzOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,10 +33,11 @@
         android:textColor="@color/colorBtnText"
         android:text="Off"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bWzDim"
         app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
 
     <Button
-        android:id="@+id/bDim"
+        android:id="@+id/bWzDim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -47,11 +48,12 @@
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
         android:text="Dim"
-        app:layout_constraintStart_toEndOf="@+id/bOff"
+        app:layout_constraintStart_toEndOf="@+id/bWzOff"
+        app:layout_constraintEnd_toStartOf="@+id/bWzPulse"
         app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
 
     <Button
-        android:id="@+id/bPurple"
+        android:id="@+id/bWzPulse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -61,12 +63,13 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
-        android:text="Purple"
-        app:layout_constraintStart_toEndOf="@+id/bDim"
+        android:text="Pulse"
+        app:layout_constraintStart_toEndOf="@+id/bWzDim"
+        app:layout_constraintEnd_toStartOf="@+id/bWzMax"
         app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
 
     <Button
-        android:id="@+id/bMax"
+        android:id="@+id/bWzMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -78,7 +81,172 @@
         android:textColor="@color/colorBtnText"
         android:text="Max"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bPurple"
+        app:layout_constraintStart_toEndOf="@+id/bWzPulse"
         app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+
+    <TextView
+        android:id="@+id/tBoulderwand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Boulderwand:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bWzOff" />
+
+    <Button
+        android:id="@+id/bBwOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Off"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bBwDim"
+        app:layout_constraintTop_toBottomOf="@+id/tBoulderwand" />
+
+    <Button
+        android:id="@+id/bBwDim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Dim"
+        app:layout_constraintStart_toEndOf="@+id/bBwOff"
+        app:layout_constraintEnd_toStartOf="@+id/bBwPulse"
+        app:layout_constraintTop_toBottomOf="@+id/tBoulderwand" />
+
+    <Button
+        android:id="@+id/bBwPulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Pulse"
+        app:layout_constraintStart_toEndOf="@+id/bBwDim"
+        app:layout_constraintEnd_toStartOf="@+id/bBwMax"
+        app:layout_constraintTop_toBottomOf="@+id/tBoulderwand" />
+
+    <Button
+        android:id="@+id/bBwMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Max"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bBwPulse"
+        app:layout_constraintTop_toBottomOf="@+id/tBoulderwand" />
+
+    <TextView
+        android:id="@+id/tAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Alle:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bBwOff" />
+
+    <Button
+        android:id="@+id/bAllOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Off"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bAllDim"
+        app:layout_constraintTop_toBottomOf="@+id/tAll" />
+
+    <Button
+        android:id="@+id/bAllDim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Dim"
+        app:layout_constraintStart_toEndOf="@+id/bAllOff"
+        app:layout_constraintEnd_toStartOf="@+id/bAllPulse"
+        app:layout_constraintTop_toBottomOf="@+id/tAll" />
+
+    <Button
+        android:id="@+id/bAllPulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Pulse"
+        app:layout_constraintStart_toEndOf="@+id/bAllDim"
+        app:layout_constraintEnd_toStartOf="@+id/bAllMax"
+        app:layout_constraintTop_toBottomOf="@+id/tAll" />
+
+    <Button
+        android:id="@+id/bAllMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Max"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bAllPulse"
+        app:layout_constraintTop_toBottomOf="@+id/tAll" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bAllOff" />
 
 </android.support.constraint.ConstraintLayout>

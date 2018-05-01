@@ -9,35 +9,111 @@ import com.asofterspace.toolbox.web.WebAccessor;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static AppCompatActivity debugParent;
+
+    private BackendThread backendThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final WebAccessor webAccessor = new WebAccessor();
+        debugParent = this;
 
-        Button bOff = findViewById(R.id.bOff);
-        bOff.setOnClickListener(new View.OnClickListener()
+        backendThread = new BackendThread();
+        Thread actualThread = new Thread(backendThread);
+        actualThread.start();
+
+        Button bWzOff = findViewById(R.id.bWzOff);
+        bWzOff.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                // TODO :: do not hardcode the IP address, but instead discover it!
-                // TODO :: do not hardcode an authorized user, but instead generate an authorization on the device and store it!
-                webAccessor.put("http://192.168.178.21/api/L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state", "{\"on\":false}");
+                backendThread.performTask(new BackendTask(BackendTarget.WZ, 0, 0, 0));
             }
         });
 
-        Button bDim = findViewById(R.id.bDim);
-        bDim.setOnClickListener(new View.OnClickListener()
+        Button bWzDim = findViewById(R.id.bWzDim);
+        bWzDim.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                webAccessor.put("http://192.168.178.21/api/L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state", "{\"on\":true, \"sat\":254, \"bri\":254,\"hue\":49000}");
+                backendThread.performTask(new BackendTask(BackendTarget.WZ, 50, 50, 50));
             }
         });
 
-        // TODO :: add the other buttons
+        Button bWzMax = findViewById(R.id.bWzMax);
+        bWzMax.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(BackendTarget.WZ, 255, 255, 255));
+            }
+        });
+
+
+        Button bBwOff = findViewById(R.id.bBwOff);
+        bBwOff.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(BackendTarget.BW, 0, 0, 0));
+            }
+        });
+
+        Button bBwDim = findViewById(R.id.bBwDim);
+        bBwDim.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(BackendTarget.BW, 50, 50, 50));
+            }
+        });
+
+        Button bBwMax = findViewById(R.id.bBwMax);
+        bBwMax.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(BackendTarget.BW, 255, 255, 255));
+            }
+        });
+
+
+        Button bAllOff = findViewById(R.id.bAllOff);
+        bAllOff.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(BackendTarget.ALL, 0, 0, 0));
+            }
+        });
+
+        Button bAllDim = findViewById(R.id.bAllDim);
+        bAllDim.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(BackendTarget.ALL, 50, 50, 50));
+            }
+        });
+
+        Button bAllMax = findViewById(R.id.bAllMax);
+        bAllMax.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(BackendTarget.ALL, 255, 255, 255));
+            }
+        });
     }
 }
