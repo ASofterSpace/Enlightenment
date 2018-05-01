@@ -17,12 +17,15 @@ public class BackendThread implements Runnable {
 
     public void performTask(BackendTask todo) {
         synchronized (todoQueue) {
+            todoQueue.clear();
             todoQueue.add(todo);
         }
     }
 
     @Override
     public void run() {
+
+        BackendTask lastTodo = null;
 
         while (true) {
 
@@ -31,11 +34,16 @@ public class BackendThread implements Runnable {
             synchronized (todoQueue) {
                 if (todoQueue.size() > 0) {
                     todo = todoQueue.get(0);
+                    lastTodo = todo;
                     todoQueue.remove(0);
                 }
             }
 
-            if (todo != null) {
+            if (todo == null) {
+                if (lastTodo != null) {
+                    lastTodo.executeAgain();
+                }
+            } else {
                 todo.execute();
             }
 

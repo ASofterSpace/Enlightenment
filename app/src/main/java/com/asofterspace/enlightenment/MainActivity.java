@@ -4,115 +4,232 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import com.asofterspace.toolbox.web.WebAccessor;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-    public static AppCompatActivity debugParent;
+public class MainActivity extends AppCompatActivity {
 
     private BackendThread backendThread;
 
+    private Set<BackendTarget> currentTargets;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        debugParent = this;
+        currentTargets = new HashSet<>();
+
+        startupBackend();
+
+        arrangeButtons();
+    }
+
+    private void startupBackend() {
 
         backendThread = new BackendThread();
+
         Thread actualThread = new Thread(backendThread);
+
         actualThread.start();
+    }
 
-        Button bWzOff = findViewById(R.id.bWzOff);
-        bWzOff.setOnClickListener(new View.OnClickListener()
+    private void arrangeButtons() {
+
+        final ToggleButton tWohnzimmer = findViewById(R.id.tWohnzimmer);
+        tWohnzimmer.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.WZ, 0, 0, 0));
+                if (tWohnzimmer.isChecked()) {
+                    currentTargets.add(BackendTarget.WZ);
+                } else {
+                    currentTargets.remove(BackendTarget.WZ);
+                }
             }
         });
 
-        Button bWzDim = findViewById(R.id.bWzDim);
-        bWzDim.setOnClickListener(new View.OnClickListener()
+        final ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
+        tBoulderwand.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.WZ, 50, 50, 50));
+                if (tBoulderwand.isChecked()) {
+                    currentTargets.add(BackendTarget.BW);
+                } else {
+                    currentTargets.remove(BackendTarget.BW);
+                }
             }
         });
 
-        Button bWzMax = findViewById(R.id.bWzMax);
-        bWzMax.setOnClickListener(new View.OnClickListener()
+        Button bOff = findViewById(R.id.bOff);
+        bOff.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.WZ, 255, 255, 255));
+                backendThread.performTask(new BackendTask(currentTargets, 0, 0, 0));
+            }
+        });
+
+        Button bDim = findViewById(R.id.bDim);
+        bDim.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, 52, 52, 52));
+            }
+        });
+
+        Button bMedium = findViewById(R.id.bMedium);
+        bMedium.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, 152, 152, 152));
+            }
+        });
+
+        Button bMax = findViewById(R.id.bMax);
+        bMax.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, 255, 255, 255));
             }
         });
 
 
-        Button bBwOff = findViewById(R.id.bBwOff);
-        bBwOff.setOnClickListener(new View.OnClickListener()
+        Button bRed = findViewById(R.id.bRed);
+        bRed.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.BW, 0, 0, 0));
+                backendThread.performTask(new BackendTask(currentTargets, 255, 0, 0));
             }
         });
 
-        Button bBwDim = findViewById(R.id.bBwDim);
-        bBwDim.setOnClickListener(new View.OnClickListener()
+        Button bOrange = findViewById(R.id.bOrange);
+        bOrange.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.BW, 50, 50, 50));
+                backendThread.performTask(new BackendTask(currentTargets, 255, 128, 0));
             }
         });
 
-        Button bBwMax = findViewById(R.id.bBwMax);
-        bBwMax.setOnClickListener(new View.OnClickListener()
+        Button bYellow = findViewById(R.id.bYellow);
+        bYellow.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.BW, 255, 255, 255));
+                backendThread.performTask(new BackendTask(currentTargets, 255, 255, 0));
             }
         });
 
 
-        Button bAllOff = findViewById(R.id.bAllOff);
-        bAllOff.setOnClickListener(new View.OnClickListener()
+        Button bGreen = findViewById(R.id.bGreen);
+        bGreen.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.ALL, 0, 0, 0));
+                backendThread.performTask(new BackendTask(currentTargets, 0, 255, 0));
             }
         });
 
-        Button bAllDim = findViewById(R.id.bAllDim);
-        bAllDim.setOnClickListener(new View.OnClickListener()
+        Button bTurquoise = findViewById(R.id.bTurquoise);
+        bTurquoise.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.ALL, 50, 50, 50));
+                backendThread.performTask(new BackendTask(currentTargets, 0, 255, 255));
             }
         });
 
-        Button bAllMax = findViewById(R.id.bAllMax);
-        bAllMax.setOnClickListener(new View.OnClickListener()
+        Button bBlue = findViewById(R.id.bBlue);
+        bBlue.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(BackendTarget.ALL, 255, 255, 255));
+                backendThread.performTask(new BackendTask(currentTargets, 0, 0, 255));
+            }
+        });
+
+
+        Button bPurple = findViewById(R.id.bPurple);
+        bPurple.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, 179, 0, 255));
+            }
+        });
+
+        Button bBrown = findViewById(R.id.bBrown);
+        bBrown.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, 128, 64, 0));
+            }
+        });
+
+        Button bRainbow = findViewById(R.id.bRainbow);
+        bRainbow.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, "rainbow"));
+            }
+        });
+
+        Button bPulse = findViewById(R.id.bPulse);
+        bPulse.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, "pulsred"));
+            }
+        });
+
+        Button bTwinkle = findViewById(R.id.bTwinkle);
+        bTwinkle.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, "twinkle"));
+            }
+        });
+
+        Button bStrobeRed = findViewById(R.id.bStrobeRed);
+        bStrobeRed.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                backendThread.performTask(new BackendTask(currentTargets, "strobored"));
             }
         });
     }
