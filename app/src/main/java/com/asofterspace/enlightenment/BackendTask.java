@@ -26,6 +26,12 @@ public class BackendTask {
 
     private int roundCounter = 0;
 
+    private final String HUE_IP = "192.168.178.20";
+    private final String HUE_API = "http://" + HUE_IP + "/api/";
+
+    private final String BOULDERWALL_IP = "192.168.178.21";
+    private final String BOULDERWALL_API = "http://" + BOULDERWALL_IP + ":5000/colors/";
+
     public BackendTask(BackendTarget target, int r, int g, int b) {
 
         this.webAccessor = new WebAccessor();
@@ -90,6 +96,18 @@ public class BackendTask {
 
     private void executeWZ() {
 
+        if ("dim".equals(specops)) {
+            r = 52;
+            g = 52;
+            b = 52;
+        }
+
+        if ("medium".equals(specops)) {
+            r = 152;
+            g = 152;
+            b = 152;
+        }
+
         if ("rainbow".equals(specops)) {
             r = 255;
             g = 0;
@@ -117,9 +135,9 @@ public class BackendTask {
         // actually turn off the lamp
         if ((r < 1) && (g < 1) && (b < 1)) {
 
-            // TODO :: do not hardcode the IP address, but instead discover it!
+            // TODO :: do not hardcode the IP address, but instead discover it using https://www.meethue.com/api/nupnp
             // TODO :: do not hardcode an authorized user, but instead generate an authorization on the device and store it!
-            webAccessor.put("http://192.168.178.21/api/L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state",
+            webAccessor.put(HUE_API + "L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state",
                     "{\"on\":false}");
 
             return;
@@ -216,16 +234,30 @@ public class BackendTask {
             hue += 65536;
         }
 
-        webAccessor.put("http://192.168.178.21/api/L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state",
+        webAccessor.put(HUE_API + "L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state",
                 "{\"on\":true, \"sat\":" + saturation + ", \"bri\":" + brightness + ",\"hue\":" + hue + "}");
     }
 
     private void executeBW() {
 
+        if ("dim".equals(specops)) {
+            r = 105;
+            g = 74;
+            b = 25;
+            specops = null;
+        }
+
+        if ("medium".equals(specops)) {
+            r = 185;
+            g = 138;
+            b = 64;
+            specops = null;
+        }
+
         if (specops != null) {
-            webAccessor.get("http://192.168.178.44:5000/colors/" + specops);
+            webAccessor.get(BOULDERWALL_API + specops);
         } else {
-            webAccessor.get("http://192.168.178.44:5000/colors/" + colorToHex(r, g, b));
+            webAccessor.get(BOULDERWALL_API + colorToHex(r, g, b));
         }
     }
 

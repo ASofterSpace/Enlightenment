@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 52, 52, 52));
+                backendThread.performTask(new BackendTask(currentTargets, "dim"));
             }
         });
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 152, 152, 152));
+                backendThread.performTask(new BackendTask(currentTargets, "medium"));
             }
         });
 
