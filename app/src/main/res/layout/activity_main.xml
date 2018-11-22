@@ -7,19 +7,57 @@
     tools:context="com.asofterspace.enlightenment.MainActivity">
 
     <ToggleButton
-        android:id="@+id/tWohnzimmer"
+        android:id="@+id/tHue1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginStart="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
-        android:text="Wohnzimmer"
-        android:textOn="✔ Wohnzimmer"
-        android:textOff="✘ Wohnzimmer"
-        app:layout_constraintEnd_toStartOf="@+id/tBoulderwand"
+        android:text="Hue 1"
+        android:textOn="✔ Hue 1"
+        android:textOff="✘ Hue 1"
+        app:layout_constraintEnd_toStartOf="@+id/tHue2"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/tHue2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Hue 2"
+        android:textOn="✔ Hue 2"
+        android:textOff="✘ Hue 2"
+        app:layout_constraintEnd_toStartOf="@+id/tHue3"
+        app:layout_constraintStart_toEndOf="@+id/tHue1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/tHue3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="Hue 3"
+        android:textOn="✔ Hue 3"
+        android:textOff="✘ Hue 3"
+        app:layout_constraintEnd_toStartOf="@+id/tBoulderwand"
+        app:layout_constraintStart_toEndOf="@+id/tHue2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
@@ -27,15 +65,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
-        android:text="Boulderwand"
-        android:textOn="✔ Boulderwand"
-        android:textOff="✘ Boulderwand"
+        android:text="BW"
+        android:textOn="✔ BW"
+        android:textOff="✘ BW"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tWohnzimmer"
+        app:layout_constraintStart_toEndOf="@+id/tHue3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -52,7 +92,7 @@
         android:text="Off"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bDim"
-        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+        app:layout_constraintTop_toBottomOf="@+id/tHue1" />
 
     <Button
         android:id="@+id/bDim"
@@ -68,7 +108,7 @@
         android:text="Dim"
         app:layout_constraintStart_toEndOf="@+id/bOff"
         app:layout_constraintEnd_toStartOf="@+id/bMedium"
-        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+        app:layout_constraintTop_toBottomOf="@+id/tHue2" />
 
     <Button
         android:id="@+id/bMedium"
@@ -84,7 +124,7 @@
         android:text="Medium"
         app:layout_constraintStart_toEndOf="@+id/bDim"
         app:layout_constraintEnd_toStartOf="@+id/bMax"
-        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+        app:layout_constraintTop_toBottomOf="@+id/tHue3" />
 
     <Button
         android:id="@+id/bMax"
@@ -100,7 +140,7 @@
         android:text="Max"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bMedium"
-        app:layout_constraintTop_toBottomOf="@+id/tWohnzimmer" />
+        app:layout_constraintTop_toBottomOf="@+id/tBoulderwand" />
 
     <Button
         android:id="@+id/bRed"
@@ -293,5 +333,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bTwinkle"
         app:layout_constraintTop_toBottomOf="@+id/bTurquoise" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bStrobeRed"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

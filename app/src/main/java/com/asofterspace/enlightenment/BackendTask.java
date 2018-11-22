@@ -26,9 +26,13 @@ public class BackendTask {
 
     private int roundCounter = 0;
 
-    private final String HUE_IP = "192.168.178.20";
-    private final String HUE_API = "http://" + HUE_IP + "/api/";
+    // TODO :: do not hardcode the IP address, but instead discover it using https://www.meethue.com/api/nupnp
+    private final String HUE_IP = "192.168.178.80";
+    // TODO :: do not hardcode an authorized user, but instead generate an authorization on the device and store it!
+    private final String HUE_AUTH = "OsYo-UTn1Bz--jK6tDhMSQQWSw0o-Q49xffRheJa";
+    private final String HUE_API = "http://" + HUE_IP + "/api/" + HUE_AUTH + "/";
 
+    // TODO :: do not hardcode the IP address, but instead get it from the user or some configuration!
     private final String BOULDERWALL_IP = "192.168.178.21";
     private final String BOULDERWALL_API = "http://" + BOULDERWALL_IP + ":5000/colors/";
 
@@ -71,11 +75,12 @@ public class BackendTask {
 
         roundCounter = 0;
 
-        if (targets.contains(BackendTarget.WZ) || targets.contains(BackendTarget.ALL)) {
-            executeWZ();
+        if (targets.contains(BackendTarget.H1) || targets.contains(BackendTarget.H2) ||
+            targets.contains(BackendTarget.H3)) {
+            executeHue();
         }
 
-        if (targets.contains(BackendTarget.BW) || targets.contains(BackendTarget.ALL)) {
+        if (targets.contains(BackendTarget.BW)) {
             executeBW();
         }
     }
@@ -85,16 +90,17 @@ public class BackendTask {
 
         roundCounter++;
 
-        if (targets.contains(BackendTarget.WZ) || targets.contains(BackendTarget.ALL)) {
-            executeAgainWZ();
+        if (targets.contains(BackendTarget.H1) || targets.contains(BackendTarget.H2) ||
+                targets.contains(BackendTarget.H3)) {
+            executeAgainHue();
         }
 
-        if (targets.contains(BackendTarget.BW) || targets.contains(BackendTarget.ALL)) {
+        if (targets.contains(BackendTarget.BW)) {
             executeAgainBW();
         }
     }
 
-    private void executeWZ() {
+    private void executeHue() {
 
         if ("dim".equals(specops)) {
             r = 52;
@@ -135,18 +141,15 @@ public class BackendTask {
         // actually turn off the lamp
         if ((r < 1) && (g < 1) && (b < 1)) {
 
-            // TODO :: do not hardcode the IP address, but instead discover it using https://www.meethue.com/api/nupnp
-            // TODO :: do not hardcode an authorized user, but instead generate an authorization on the device and store it!
-            webAccessor.put(HUE_API + "L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state",
-                    "{\"on\":false}");
+            instructHue("{\"on\":false}");
 
             return;
         }
 
-        setWZColor();
+        setHueColor();
     }
 
-    private void executeAgainWZ() {
+    private void executeAgainHue() {
 
         boolean colorChanged = false;
 
@@ -195,11 +198,11 @@ public class BackendTask {
         }
 
         if (colorChanged) {
-            setWZColor();
+            setHueColor();
         }
     }
 
-    private void setWZColor() {
+    private void setHueColor() {
         // see https://en.wikipedia.org/wiki/HSL_and_HSV
         // the Hue light is using HSV (hue, saturation and value, which is brightness)
 
@@ -234,8 +237,22 @@ public class BackendTask {
             hue += 65536;
         }
 
-        webAccessor.put(HUE_API + "L59MkdWe78VkT916JWAhYf4cLAWmNLmS3s3vAzVR/lights/4/state",
-                "{\"on\":true, \"sat\":" + saturation + ", \"bri\":" + brightness + ",\"hue\":" + hue + "}");
+        instructHue("{\"on\":true, \"sat\":" + saturation + ", \"bri\":" + brightness + ",\"hue\":" + hue + "}");
+    }
+
+    private void instructHue(String instruction) {
+
+        if (targets.contains(BackendTarget.H1)) {
+            webAccessor.put(HUE_API + "lights/1/state", instruction);
+        }
+
+        if (targets.contains(BackendTarget.H2)) {
+            webAccessor.put(HUE_API + "lights/2/state", instruction);
+        }
+
+        if (targets.contains(BackendTarget.H3)) {
+            webAccessor.put(HUE_API + "lights/3/state", instruction);
+        }
     }
 
     private void executeBW() {

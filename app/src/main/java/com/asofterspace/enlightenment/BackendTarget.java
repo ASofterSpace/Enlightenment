@@ -6,8 +6,9 @@ package com.asofterspace.enlightenment;
 
 public enum BackendTarget {
 
-    WZ, // Wohnzimmer
+    H1, // HUE 1
+    H2, // HUE 2
+    H3, // HUE 3
     BW, // Boulderwand
-    ALL, // Alle
 
 }

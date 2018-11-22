@@ -42,16 +42,44 @@ public class MainActivity extends AppCompatActivity {
 
     private void arrangeButtons() {
 
-        final ToggleButton tWohnzimmer = findViewById(R.id.tWohnzimmer);
-        tWohnzimmer.setOnClickListener(new View.OnClickListener()
+        final ToggleButton tHue1 = findViewById(R.id.tHue1);
+        tHue1.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if (tWohnzimmer.isChecked()) {
-                    currentTargets.add(BackendTarget.WZ);
+                if (tHue1.isChecked()) {
+                    currentTargets.add(BackendTarget.H1);
                 } else {
-                    currentTargets.remove(BackendTarget.WZ);
+                    currentTargets.remove(BackendTarget.H1);
+                }
+            }
+        });
+
+        final ToggleButton tHue2 = findViewById(R.id.tHue2);
+        tHue1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (tHue2.isChecked()) {
+                    currentTargets.add(BackendTarget.H2);
+                } else {
+                    currentTargets.remove(BackendTarget.H2);
+                }
+            }
+        });
+
+        final ToggleButton tHue3 = findViewById(R.id.tHue3);
+        tHue3.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (tHue3.isChecked()) {
+                    currentTargets.add(BackendTarget.H3);
+                } else {
+                    currentTargets.remove(BackendTarget.H3);
                 }
             }
         });
