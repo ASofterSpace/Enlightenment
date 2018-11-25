@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
-import com.asofterspace.toolbox.web.WebAccessor;
+import com.asofterspace.toolbox.Utils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,10 +14,19 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
+    public final static String PROGRAM_TITLE = "Enlightenment";
+    public final static String VERSION_NUMBER = "0.0.1.0(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 25. November 2018";
+
     private BackendThread backendThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // let the Utils know in what program it is being used
+        Utils.setProgramTitle(PROGRAM_TITLE);
+        Utils.setVersionNumber(VERSION_NUMBER);
+        Utils.setVersionDate(VERSION_DATE);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
