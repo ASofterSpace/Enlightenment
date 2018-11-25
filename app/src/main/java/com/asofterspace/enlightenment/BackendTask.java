@@ -203,6 +203,10 @@ public class BackendTask {
     }
 
     private void setHueColor() {
+
+        /*
+        // this is our old code, trying to convert to HSV... however, the bulbs also understand
+        // CIE x,y, which is much easier to convert to from RGB, so let's use that instead! :)
         // see https://en.wikipedia.org/wiki/HSL_and_HSV
         // the Hue light is using HSV (hue, saturation and value, which is brightness)
 
@@ -238,6 +242,18 @@ public class BackendTask {
         }
 
         instructHue("{\"on\":true, \"sat\":" + saturation + ", \"bri\":" + brightness + ",\"hue\":" + hue + "}");
+        */
+
+        double x1 = 0.4124*r + 0.3576*g + 0.1805*b;
+        double y1 = 0.2126*r + 0.7152*g + 0.0722*b;
+        double z1 = 0.0193*r + 0.1192*g + 0.9505*b;
+
+        double sum = x1 + y1 + z1;
+
+        double x = x1 / sum;
+        double y = y1 / sum;
+
+        instructHue("{\"on\":true, \"xy\": [" + x + ", " + y + "]}");
     }
 
     private void instructHue(String instruction) {

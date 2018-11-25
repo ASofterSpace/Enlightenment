@@ -16,15 +16,11 @@ public class MainActivity extends AppCompatActivity {
 
     private BackendThread backendThread;
 
-    private Set<BackendTarget> currentTargets;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        currentTargets = new HashSet<>();
 
         startupBackend();
 
@@ -42,69 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void arrangeButtons() {
 
-        final ToggleButton tHue1 = findViewById(R.id.tHue1);
-        tHue1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (tHue1.isChecked()) {
-                    currentTargets.add(BackendTarget.H1);
-                } else {
-                    currentTargets.remove(BackendTarget.H1);
-                }
-            }
-        });
-
-        final ToggleButton tHue2 = findViewById(R.id.tHue2);
-        tHue1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (tHue2.isChecked()) {
-                    currentTargets.add(BackendTarget.H2);
-                } else {
-                    currentTargets.remove(BackendTarget.H2);
-                }
-            }
-        });
-
-        final ToggleButton tHue3 = findViewById(R.id.tHue3);
-        tHue3.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (tHue3.isChecked()) {
-                    currentTargets.add(BackendTarget.H3);
-                } else {
-                    currentTargets.remove(BackendTarget.H3);
-                }
-            }
-        });
-
-        final ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
-        tBoulderwand.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if (tBoulderwand.isChecked()) {
-                    currentTargets.add(BackendTarget.BW);
-                } else {
-                    currentTargets.remove(BackendTarget.BW);
-                }
-            }
-        });
-
         Button bOff = findViewById(R.id.bOff);
         bOff.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 0, 0, 0));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 0, 0));
             }
         });
 
@@ -114,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, "dim"));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "dim"));
             }
         });
 
@@ -124,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, "medium"));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "medium"));
             }
         });
 
@@ -134,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 255, 255, 255));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 255, 255));
             }
         });
 
@@ -145,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 255, 0, 0));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 0, 0));
             }
         });
 
@@ -155,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 255, 128, 0));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 128, 0));
             }
         });
 
@@ -165,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 255, 255, 0));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 255, 0));
             }
         });
 
@@ -176,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 0, 255, 0));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 255, 0));
             }
         });
 
@@ -186,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 0, 255, 255));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 255, 255));
             }
         });
 
@@ -196,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 0, 0, 255));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 0, 255));
             }
         });
 
@@ -207,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 179, 0, 255));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 179, 0, 255));
             }
         });
 
@@ -217,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, 128, 64, 0));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), 128, 64, 0));
             }
         });
 
@@ -227,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, "rainbow"));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "rainbow"));
             }
         });
 
@@ -237,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, "pulsred"));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "pulsred"));
             }
         });
 
@@ -247,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, "twinkle"));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "twinkle"));
             }
         });
 
@@ -257,8 +197,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(currentTargets, "strobored"));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "strobored"));
             }
         });
     }
+
+    private Set<BackendTarget> getCurrentTargets() {
+
+        Set<BackendTarget> result = new HashSet<>();
+
+        ToggleButton tHue1 = findViewById(R.id.tHue1);
+        if (tHue1.isChecked()) {
+            result.add(BackendTarget.H1);
+        }
+
+        ToggleButton tHue2 = findViewById(R.id.tHue2);
+        if (tHue2.isChecked()) {
+            result.add(BackendTarget.H2);
+        }
+
+        ToggleButton tHue3 = findViewById(R.id.tHue3);
+        if (tHue3.isChecked()) {
+            result.add(BackendTarget.H3);
+        }
+
+        ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
+        if (tBoulderwand.isChecked()) {
+            result.add(BackendTarget.BW);
+        }
+
+        return result;
+    };
+
 }

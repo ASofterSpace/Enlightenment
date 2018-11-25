@@ -17,29 +17,11 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
-        android:text="Hue 1"
-        android:textOn="✔ Hue 1"
-        android:textOff="✘ Hue 1"
-        app:layout_constraintEnd_toStartOf="@+id/tHue2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ToggleButton
-        android:id="@+id/tHue2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorBtnText"
-        android:text="Hue 2"
-        android:textOn="✔ Hue 2"
-        android:textOff="✘ Hue 2"
+        android:text="Flur 1"
+        android:textOn="✔ Flur 1"
+        android:textOff="✘ Flur 1"
         app:layout_constraintEnd_toStartOf="@+id/tHue3"
-        app:layout_constraintStart_toEndOf="@+id/tHue1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
@@ -53,11 +35,29 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
-        android:text="Hue 3"
-        android:textOn="✔ Hue 3"
-        android:textOff="✘ Hue 3"
+        android:text="Flur 2"
+        android:textOn="✔ Flur 2"
+        android:textOff="✘ Flur 2"
+        app:layout_constraintEnd_toStartOf="@+id/tHue2"
+        app:layout_constraintStart_toEndOf="@+id/tHue1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/tHue2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorBtnText"
+        android:text="WZ"
+        android:textOn="✔ WZ"
+        android:textOff="✘ WZ"
         app:layout_constraintEnd_toStartOf="@+id/tBoulderwand"
-        app:layout_constraintStart_toEndOf="@+id/tHue2"
+        app:layout_constraintStart_toEndOf="@+id/tHue3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ToggleButton
@@ -75,7 +75,7 @@
         android:textOn="✔ BW"
         android:textOff="✘ BW"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tHue3"
+        app:layout_constraintStart_toEndOf="@+id/tHue2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
