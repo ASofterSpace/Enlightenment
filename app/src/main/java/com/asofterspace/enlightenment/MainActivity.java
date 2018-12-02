@@ -15,8 +15,8 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.0(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
-    public final static String VERSION_DATE = "29. April 2018 - 25. November 2018";
+    public final static String VERSION_NUMBER = "0.0.1.1(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 2. December 2018";
 
     private BackendThread backendThread;
 
@@ -228,6 +228,16 @@ public class MainActivity extends AppCompatActivity {
         ToggleButton tHue3 = findViewById(R.id.tHue3);
         if (tHue3.isChecked()) {
             result.add(BackendTarget.H3);
+        }
+
+        ToggleButton tHue4 = findViewById(R.id.tHue4);
+        if (tHue4.isChecked()) {
+            result.add(BackendTarget.H4);
+        }
+
+        ToggleButton tHue5 = findViewById(R.id.tHue5);
+        if (tHue5.isChecked()) {
+            result.add(BackendTarget.H5);
         }
 
         ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);

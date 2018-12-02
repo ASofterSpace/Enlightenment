@@ -76,7 +76,8 @@ public class BackendTask {
         roundCounter = 0;
 
         if (targets.contains(BackendTarget.H1) || targets.contains(BackendTarget.H2) ||
-            targets.contains(BackendTarget.H3)) {
+            targets.contains(BackendTarget.H3) || targets.contains(BackendTarget.H4) ||
+            targets.contains(BackendTarget.H5)) {
             executeHue();
         }
 
@@ -91,7 +92,8 @@ public class BackendTask {
         roundCounter++;
 
         if (targets.contains(BackendTarget.H1) || targets.contains(BackendTarget.H2) ||
-                targets.contains(BackendTarget.H3)) {
+            targets.contains(BackendTarget.H3) || targets.contains(BackendTarget.H4) ||
+            targets.contains(BackendTarget.H5)) {
             executeAgainHue();
         }
 
@@ -268,6 +270,14 @@ public class BackendTask {
 
         if (targets.contains(BackendTarget.H3)) {
             webAccessor.put(HUE_API + "lights/3/state", instruction);
+        }
+
+        if (targets.contains(BackendTarget.H4)) {
+            webAccessor.put(HUE_API + "lights/4/state", instruction);
+        }
+
+        if (targets.contains(BackendTarget.H5)) {
+            webAccessor.put(HUE_API + "lights/5/state", instruction);
         }
     }
 
