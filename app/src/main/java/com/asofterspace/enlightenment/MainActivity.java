@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ToggleButton;
 
 import com.asofterspace.toolbox.Utils;
@@ -15,8 +16,11 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.1(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
-    public final static String VERSION_DATE = "29. April 2018 - 2. December 2018";
+    public final static String VERSION_NUMBER = "0.0.1.2(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 7. January 2019";
+
+    // if we are including Bene's light in the app, set this to true, and if not, set it to false
+    private boolean BENE_VERSION = true;
 
     private BackendThread backendThread;
 
@@ -46,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void arrangeButtons() {
+
+        ToggleButton tBene = findViewById(R.id.tBene);
+        EditText tBeneTime = findViewById(R.id.tBeneTime);
+        if (BENE_VERSION) {
+            tBene.setVisibility(View.VISIBLE);
+            tBeneTime.setVisibility(View.VISIBLE);
+        } else {
+            tBene.setVisibility(View.INVISIBLE);
+            tBeneTime.setVisibility(View.INVISIBLE);
+        }
 
         Button bOff = findViewById(R.id.bOff);
         bOff.setOnClickListener(new View.OnClickListener()
@@ -240,9 +254,16 @@ public class MainActivity extends AppCompatActivity {
             result.add(BackendTarget.H5);
         }
 
-        ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
-        if (tBoulderwand.isChecked()) {
-            result.add(BackendTarget.BW);
+        if (BENE_VERSION) {
+            ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
+            if (tBoulderwand.isChecked()) {
+                result.add(BackendTarget.BW);
+            }
+        }
+
+        ToggleButton tBene = findViewById(R.id.tBene);
+        if (tBene.isChecked()) {
+            result.add(BackendTarget.BENE);
         }
 
         return result;

@@ -16,7 +16,7 @@ First of all, install Android Studio
 
 Then download the sources here as well as the Toolbox-Java project
 
-Then call the updateDependencies.bat script
+Then call the update_dependencies.bat script
 
 Finally, import this project into Android Studio
 

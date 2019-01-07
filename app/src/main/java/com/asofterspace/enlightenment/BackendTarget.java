@@ -11,6 +11,7 @@ public enum BackendTarget {
     H3, // HUE 3
     H4, // HUE 4
     H5, // HUE 5
+    BENE, // HUE 6
     BW, // Boulderwand
 
 }
