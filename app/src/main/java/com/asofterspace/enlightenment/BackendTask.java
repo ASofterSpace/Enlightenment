@@ -140,6 +140,12 @@ public class BackendTask {
             b = 0;
         }
 
+        if ("sunrise".equals(specops)) {
+            r = 1;
+            g = 1;
+            b = 1;
+        }
+
         // actually turn off the lamp
         if ((r < 1) && (g < 1) && (b < 1)) {
 
@@ -199,6 +205,30 @@ public class BackendTask {
             colorChanged = true;
         }
 
+        // slow down: only show every 10th update
+        if (roundCounter % 10 == 1) {
+            if ("sunrise".equals(specops)) {
+                r++;
+                g++;
+                b++;
+
+                colorChanged = true;
+
+                if (r > 255) {
+                    r = 255;
+                    colorChanged = false;
+                }
+                if (g > 255) {
+                    g = 255;
+                    colorChanged = false;
+                }
+                if (b > 255) {
+                    b = 255;
+                    colorChanged = false;
+                }
+            }
+        }
+
         if (colorChanged) {
             setHueColor();
         }
@@ -255,7 +285,12 @@ public class BackendTask {
         double x = x1 / sum;
         double y = y1 / sum;
 
-        instructHue("{\"on\":true, \"xy\": [" + x + ", " + y + "]}");
+        int brightness = (int) Math.round((x1 + y1 + z1) / 3);
+        if (brightness > 254) {
+            brightness = 254;
+        }
+
+        instructHue("{\"on\":true, \"xy\": [" + x + ", " + y + "], \"bri\":" + brightness + "}");
     }
 
     private void instructHue(String instruction) {

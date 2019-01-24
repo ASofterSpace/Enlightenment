@@ -1,28 +1,43 @@
 package com.asofterspace.enlightenment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.asofterspace.toolbox.Utils;
 
+import java.util.Calendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.2(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
-    public final static String VERSION_DATE = "29. April 2018 - 7. January 2019";
+    public final static String VERSION_NUMBER = "0.0.1.3(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 23. January 2019";
 
     // if we are including Bene's light in the app, set this to true, and if not, set it to false
     private boolean BENE_VERSION = true;
 
-    private BackendThread backendThread;
+    private static BackendThread backendThread;
+
+    // TIMER FUNK :D
+    private boolean timerRunning = false;
+    private int timerHours;
+    private int timerMinutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,22 +55,132 @@ public class MainActivity extends AppCompatActivity {
         arrangeButtons();
     }
 
-    private void startupBackend() {
+    private static void startupBackend() {
 
-        backendThread = new BackendThread();
+        if (backendThread == null) {
 
-        Thread actualThread = new Thread(backendThread);
+            backendThread = new BackendThread();
 
-        actualThread.start();
+            Thread actualThread = new Thread(backendThread);
+
+            actualThread.start();
+        }
+    }
+
+    public static BackendThread getBackendThread() {
+
+        startupBackend();
+
+        return backendThread;
     }
 
     private void arrangeButtons() {
 
         ToggleButton tBene = findViewById(R.id.tBene);
-        EditText tBeneTime = findViewById(R.id.tBeneTime);
+        final EditText tBeneTime = findViewById(R.id.tBeneTime);
         if (BENE_VERSION) {
             tBene.setVisibility(View.VISIBLE);
             tBeneTime.setVisibility(View.VISIBLE);
+
+            tBeneTime.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == EditorInfo.IME_ACTION_DONE) {
+                        // hide keyboard
+                        InputMethodManager imm = (InputMethodManager)textView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+
+                        // by default, unset the timer (well, we also don't want it to start doing
+                        // stuff while the person is still entering data, etc.)
+                        unsetTimer();
+
+                        String toastText = "The timer was un-set (because you did not enter a valid time.)";
+
+                        // we use a while (true) because what we really want to do it jump around
+                        // with gotos, but some idiot decided that gotos are a bad idea, so instead
+                        // we use a while and when we want to jump to its end we break... yay!
+                        while (true) {
+                            String timerText = tBeneTime.getText().toString();
+
+                            if (timerText == null) {
+                                break; // GOTO toast
+                            }
+
+                            if (timerText.equals("")) {
+                                break; // GOTO toast
+                            }
+
+                            String timerMinutes = "";
+                            String timerHour = "";
+
+                            if (timerText.contains(":")) {
+                                String[] timerTexts = timerText.split(":");
+                                timerHour = timerTexts[0];
+                                timerMinutes = timerTexts[1];
+                            } else {
+                                timerHour = timerText;
+                            }
+
+                            timerHour = timerHour.trim();
+                            timerMinutes = timerMinutes.trim();
+
+                            // convert both hours and minutes to int, taking 0 if unrecognized
+                            int iTimerHour;
+                            int iTimerMinutes;
+
+                            try {
+                                iTimerHour = Integer.parseInt(timerHour);
+                            } catch (NumberFormatException e) {
+                                iTimerHour = 0;
+                            }
+
+                            try {
+                                iTimerMinutes = Integer.parseInt(timerMinutes);
+                            } catch (NumberFormatException e) {
+                                iTimerMinutes = 0;
+                            }
+
+                            // perform some sanity checks
+                            if (iTimerHour < 0) {
+                                toastText = "The timer was un-set (because hours are not allowed to be negative.)";
+                                break; // GOTO toast
+                            }
+                            if (iTimerHour > 23) {
+                                toastText = "The timer was un-set (because hours are not allowed to be above 23.)";
+                                break; // GOTO toast
+                            }
+                            if (iTimerMinutes < 0) {
+                                toastText = "The timer was un-set (because minutes are not allowed to be negative.)";
+                                break; // GOTO toast
+                            }
+                            if (iTimerMinutes > 59) {
+                                toastText = "The timer was un-set (because minutes are not allowed to be above 60.)";
+                                break; // GOTO toast
+                            }
+
+                            // convert the time back to a string to display it on toast - nom nom!
+                            String timerStr = ""+iTimerMinutes;
+                            if (timerStr.length() < 2) {
+                                timerStr = "0" + timerStr;
+                            }
+                            timerStr = iTimerHour + ":" + timerStr;
+                            if (timerStr.length() < 5) {
+                                timerStr = "0" + timerStr;
+                            }
+
+                            int timerResult = setTimer(iTimerHour, iTimerMinutes) / 1000;
+
+                            toastText = "The timer was set to " + timerStr + ",\nwhich is in " + timerResult + " seconds.\nMeow! :)";
+                            break; // GOTO toast (well, just fall out of the while...)
+                        }
+
+                        Toast.makeText(MainActivity.this, toastText, Toast.LENGTH_LONG).show();
+
+                        return true;
+                    }
+                    return false;
+                }
+            });
         } else {
             tBene.setVisibility(View.INVISIBLE);
             tBeneTime.setVisibility(View.INVISIBLE);
@@ -254,19 +379,64 @@ public class MainActivity extends AppCompatActivity {
             result.add(BackendTarget.H5);
         }
 
-        if (BENE_VERSION) {
-            ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
-            if (tBoulderwand.isChecked()) {
-                result.add(BackendTarget.BW);
-            }
+        ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
+        if (tBoulderwand.isChecked()) {
+            result.add(BackendTarget.BW);
         }
 
-        ToggleButton tBene = findViewById(R.id.tBene);
-        if (tBene.isChecked()) {
-            result.add(BackendTarget.BENE);
+        if (BENE_VERSION) {
+            ToggleButton tBene = findViewById(R.id.tBene);
+            if (tBene.isChecked()) {
+                result.add(BackendTarget.BENE);
+            }
         }
 
         return result;
     };
+
+    private AlarmManager alarmManager;
+
+    /**
+     * We set a timer for performing the wakeup sunrise functionality.
+     * @param hours .. the hours at which the timer should activate (NOT further sanity checked!)
+     * @param minutes .. the minutes at which the timer should activate (NOT further checked!)
+     */
+    public int setTimer(int hours, int minutes) {
+
+        timerRunning = true;
+        timerHours = hours;
+        timerMinutes = minutes;
+
+        Calendar now = Calendar.getInstance();
+        int timediffInMinutes = (hours * 60 + minutes) - (now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE));
+        if (timediffInMinutes <= 0) {
+            timediffInMinutes += 24*60;
+        }
+        int timediffInMSec = timediffInMinutes*60*1000;
+
+        if (alarmManager == null) {
+            alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        }
+
+        Intent intent = new Intent(this, TimerCalled.class);
+        PendingIntent timerIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime() + timediffInMSec,
+            timerIntent
+        );
+
+        // immediately turn off the light, as we are going to sleep :)
+        Set<BackendTarget> targets = new HashSet<>();
+        targets.add(BackendTarget.BENE);
+        backendThread.performTask(new BackendTask(targets, 0, 0, 0));
+
+        return timediffInMSec;
+    }
+
+    public void unsetTimer() {
+        timerRunning = false;
+    }
 
 }
