@@ -104,6 +104,12 @@ public class BackendTask {
 
     private void executeHue() {
 
+        if ("off".equals(specops)) {
+            r = 0;
+            g = 0;
+            b = 0;
+        }
+
         if ("dim".equals(specops)) {
             r = 52;
             g = 52;
@@ -114,6 +120,12 @@ public class BackendTask {
             r = 152;
             g = 152;
             b = 152;
+        }
+
+        if ("max".equals(specops)) {
+            r = 255;
+            g = 255;
+            b = 255;
         }
 
         if ("rainbow".equals(specops)) {
@@ -285,12 +297,18 @@ public class BackendTask {
         double x = x1 / sum;
         double y = y1 / sum;
 
-        int brightness = (int) Math.round((x1 + y1 + z1) / 3);
-        if (brightness > 254) {
-            brightness = 254;
-        }
+        if (specops == null) {
+            // do not set brightness when the color was set via RGB
+            instructHue("{\"on\":true, \"xy\": [" + x + ", " + y + "]}");
+        } else {
+            // do set brightness when the color was set via specops
+            int brightness = (int) Math.round((x1 + y1 + z1) / 3);
+            if (brightness > 254) {
+                brightness = 254;
+            }
 
-        instructHue("{\"on\":true, \"xy\": [" + x + ", " + y + "], \"bri\":" + brightness + "}");
+            instructHue("{\"on\":true, \"xy\": [" + x + ", " + y + "], \"bri\":" + brightness + "}");
+        }
     }
 
     private void instructHue(String instruction) {
@@ -322,6 +340,13 @@ public class BackendTask {
 
     private void executeBW() {
 
+        if ("off".equals(specops)) {
+            r = 0;
+            g = 0;
+            b = 0;
+            specops = null;
+        }
+
         if ("dim".equals(specops)) {
             r = 105;
             g = 74;
@@ -333,6 +358,13 @@ public class BackendTask {
             r = 185;
             g = 138;
             b = 64;
+            specops = null;
+        }
+
+        if ("max".equals(specops)) {
+            r = 255;
+            g = 255;
+            b = 255;
             specops = null;
         }
 

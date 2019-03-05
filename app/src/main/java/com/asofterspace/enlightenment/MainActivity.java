@@ -26,11 +26,11 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.3(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
-    public final static String VERSION_DATE = "29. April 2018 - 23. January 2019";
+    public final static String VERSION_NUMBER = "0.0.1.4(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 6. March 2019";
 
     // if we are including Bene's light in the app, set this to true, and if not, set it to false
-    private boolean BENE_VERSION = true;
+    private boolean BENE_VERSION = false;
 
     private static BackendThread backendThread;
 
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 0, 0));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "off"));
             }
         });
 
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 255, 255));
+                backendThread.performTask(new BackendTask(getCurrentTargets(), "max"));
             }
         });
 
