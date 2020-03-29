@@ -26,11 +26,11 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.4(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
-    public final static String VERSION_DATE = "29. April 2018 - 6. March 2019";
+    public final static String VERSION_NUMBER = "0.0.1.5(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 28. March 2020";
 
     // if we are including Bene's light in the app, set this to true, and if not, set it to false
-    private boolean BENE_VERSION = false;
+    private boolean BENE_VERSION = true;
 
     private static BackendThread backendThread;
 
@@ -382,6 +382,11 @@ public class MainActivity extends AppCompatActivity {
         ToggleButton tBoulderwand = findViewById(R.id.tBoulderwand);
         if (tBoulderwand.isChecked()) {
             result.add(BackendTarget.BW);
+        }
+
+        ToggleButton tWohnzimmer = findViewById(R.id.tWohnzimmer);
+        if (tWohnzimmer.isChecked()) {
+            result.add(BackendTarget.WZ);
         }
 
         if (BENE_VERSION) {

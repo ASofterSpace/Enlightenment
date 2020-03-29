@@ -35,6 +35,8 @@ public class BackendTask {
     // TODO :: do not hardcode the IP address, but instead get it from the user or some configuration!
     private final String BOULDERWALL_IP = "192.168.178.21";
     private final String BOULDERWALL_API = "http://" + BOULDERWALL_IP + ":5000/colors/";
+    private final String WOHNZIMMER_IP = "192.168.178.57";
+    private final String WOHNZIMMER_API = "http://" + WOHNZIMMER_IP + ":5000/colors/";
 
     public BackendTask(BackendTarget target, int r, int g, int b) {
 
@@ -82,7 +84,7 @@ public class BackendTask {
         }
 
         if (targets.contains(BackendTarget.BW)) {
-            executeBW();
+            executeLED();
         }
     }
 
@@ -338,7 +340,7 @@ public class BackendTask {
         }
     }
 
-    private void executeBW() {
+    private void executeLED() {
 
         if ("off".equals(specops)) {
             r = 0;
@@ -368,10 +370,19 @@ public class BackendTask {
             specops = null;
         }
 
-        if (specops != null) {
-            webAccessor.get(BOULDERWALL_API + specops);
-        } else {
-            webAccessor.get(BOULDERWALL_API + colorToHex(r, g, b));
+        if (targets.contains(BackendTarget.BW)) {
+            if (specops != null) {
+                webAccessor.get(BOULDERWALL_API + specops);
+            } else {
+                webAccessor.get(BOULDERWALL_API + colorToHex(r, g, b));
+            }
+        }
+        if (targets.contains(BackendTarget.WZ)) {
+            if (specops != null) {
+                webAccessor.get(WOHNZIMMER_API + specops);
+            } else {
+                webAccessor.get(WOHNZIMMER_API + colorToHex(r, g, b));
+            }
         }
     }
 
