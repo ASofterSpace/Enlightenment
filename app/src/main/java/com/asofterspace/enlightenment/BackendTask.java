@@ -130,6 +130,13 @@ public class BackendTask {
             b = 255;
         }
 
+        if ((specops != null) && specops.startsWith("brightness:")) {
+            int bri = Integer.parseInt(specops.substring(11));
+            r = bri;
+            g = bri;
+            b = bri;
+        }
+
         if ("rainbow".equals(specops)) {
             r = 255;
             g = 0;
@@ -367,6 +374,14 @@ public class BackendTask {
             r = 255;
             g = 255;
             b = 255;
+            specops = null;
+        }
+
+        if ((specops != null) && specops.startsWith("brightness:")) {
+            int bri = Integer.parseInt(specops.substring(11));
+            r = bri;
+            g = bri;
+            b = bri;
             specops = null;
         }
 

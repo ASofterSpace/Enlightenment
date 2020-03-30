@@ -4,7 +4,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -31,11 +34,11 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.8(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_NUMBER = "0.0.1.9(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
     public final static String VERSION_DATE = "29. April 2018 - 30. March 2020";
 
     // if we are including Bene's light in the app, set this to true, and if not, set it to false
-    private boolean BENE_VERSION = true;
+    private boolean BENE_VERSION = false;
 
     private static BackendThread backendThread;
 
@@ -203,6 +206,27 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+
+        final ImageView bLightPicker = findViewById(R.id.bLightPicker);
+        bLightPicker.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                int x = (int)event.getX();
+                final Bitmap bLightPickerBitmap = ((BitmapDrawable) bLightPicker.getDrawable()).getBitmap();
+                if (x < 0) {
+                    x = 0;
+                }
+                try {
+                    int pixel = bLightPickerBitmap.getPixel(x, 0);
+                    backendThread.performTask(new BackendTask(getCurrentTargets(), "brightness:" + Color.green(pixel)));
+                } catch (Exception e) {
+                    // whoops!
+                }
+                return true;
+            }
+        });
+
+
         Button bOff = findViewById(R.id.bOff);
         bOff.setOnTouchListener(touchToClick);
         bOff.setOnClickListener(new View.OnClickListener()
@@ -248,6 +272,26 @@ public class MainActivity extends AppCompatActivity {
             {
                 showClickAnimation(R.id.bMax);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "max"));
+            }
+        });
+
+
+        final ImageView bColorPicker = findViewById(R.id.bColorPicker);
+        bColorPicker.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                int x = (int)event.getX();
+                final Bitmap bColorPickerBitmap = ((BitmapDrawable) bColorPicker.getDrawable()).getBitmap();
+                if (x < 0) {
+                    x = 0;
+                }
+                try {
+                    int pixel = bColorPickerBitmap.getPixel(x, 0);
+                    backendThread.performTask(new BackendTask(getCurrentTargets(), Color.red(pixel), Color.green(pixel), Color.blue(pixel)));
+                } catch (Exception e) {
+                    // whoops!
+                }
+                return true;
             }
         });
 

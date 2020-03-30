@@ -6,10 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.asofterspace.enlightenment.MainActivity">
 
+    <!-- ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:overScrollMode="always"
+        android:isScrollContainer="true"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="vertical" -->
+
     <ToggleButton
         android:id="@+id/tHue3"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -25,7 +34,7 @@
     <ToggleButton
         android:id="@+id/tHue1"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
@@ -41,7 +50,7 @@
     <ToggleButton
         android:id="@+id/tBoulderwand"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
@@ -57,7 +66,7 @@
     <ToggleButton
         android:id="@+id/tHue2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
@@ -73,7 +82,7 @@
     <ToggleButton
         android:id="@+id/tWohnzimmer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="4dp"
@@ -89,7 +98,7 @@
     <ToggleButton
         android:id="@+id/tHue4"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
@@ -105,7 +114,7 @@
     <ToggleButton
         android:id="@+id/tHue5"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
@@ -121,7 +130,7 @@
     <ToggleButton
         android:id="@+id/tBene"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
@@ -137,7 +146,7 @@
     <EditText
         android:id="@+id/tBeneTime"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="4dp"
         android:layout_marginBottom="0dp"
@@ -153,72 +162,104 @@
         app:layout_constraintTop_toTopOf="@+id/tBene"
         app:layout_constraintBottom_toBottomOf="@+id/tBene" />
 
+
+    <ImageView
+        android:id="@+id/bLightPicker"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/lightpicker"
+        android:textColor="@color/colorBtnText"
+        android:text=""
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tBene"/>
+
     <Button
         android:id="@+id/bOff"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
         android:text="Off"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bDim"
-        app:layout_constraintTop_toBottomOf="@+id/tBene" />
+        app:layout_constraintTop_toBottomOf="@+id/bLightPicker" />
 
     <Button
         android:id="@+id/bDim"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
         android:text="Dim"
         app:layout_constraintStart_toEndOf="@+id/bOff"
         app:layout_constraintEnd_toStartOf="@+id/bMedium"
-        app:layout_constraintTop_toBottomOf="@+id/tBene" />
+        app:layout_constraintTop_toBottomOf="@+id/bLightPicker" />
 
     <Button
         android:id="@+id/bMedium"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
         android:text="Medium"
         app:layout_constraintStart_toEndOf="@+id/bDim"
         app:layout_constraintEnd_toStartOf="@+id/bMax"
-        app:layout_constraintTop_toBottomOf="@+id/tBene" />
+        app:layout_constraintTop_toBottomOf="@+id/bLightPicker" />
 
     <Button
         android:id="@+id/bMax"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorBtnText"
         android:text="Max"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bMedium"
-        app:layout_constraintTop_toBottomOf="@+id/tBene" />
+        app:layout_constraintTop_toBottomOf="@+id/bLightPicker" />
+
+
+    <ImageView
+        android:id="@+id/bColorPicker"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/colorpicker"
+        android:textColor="@color/colorBtnText"
+        android:text=""
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bOff" />
 
     <Button
         android:id="@+id/bRed"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="4dp"
@@ -229,12 +270,12 @@
         android:text="Red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bOrange"
-        app:layout_constraintTop_toBottomOf="@+id/bDim" />
+        app:layout_constraintTop_toBottomOf="@+id/bColorPicker" />
 
     <Button
         android:id="@+id/bOrange"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
@@ -245,12 +286,12 @@
         android:text="Orange"
         app:layout_constraintStart_toEndOf="@+id/bRed"
         app:layout_constraintEnd_toStartOf="@+id/bYellow"
-        app:layout_constraintTop_toBottomOf="@+id/bDim" />
+        app:layout_constraintTop_toBottomOf="@+id/bColorPicker" />
 
     <Button
         android:id="@+id/bYellow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
@@ -261,12 +302,12 @@
         android:text="Yellow"
         app:layout_constraintStart_toEndOf="@+id/bOrange"
         app:layout_constraintEnd_toStartOf="@+id/bGreen"
-        app:layout_constraintTop_toBottomOf="@+id/bDim" />
+        app:layout_constraintTop_toBottomOf="@+id/bColorPicker" />
 
     <Button
         android:id="@+id/bGreen"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="8dp"
@@ -277,12 +318,12 @@
         android:text="Green"
         app:layout_constraintStart_toEndOf="@+id/bYellow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bDim" />
+        app:layout_constraintTop_toBottomOf="@+id/bColorPicker" />
 
     <Button
         android:id="@+id/bTurquoise"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
@@ -298,7 +339,7 @@
     <Button
         android:id="@+id/bBlue"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
@@ -314,7 +355,7 @@
     <Button
         android:id="@+id/bPurple"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
@@ -330,7 +371,7 @@
     <Button
         android:id="@+id/bBrown"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -346,7 +387,7 @@
     <Button
         android:id="@+id/bRainbow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
@@ -362,7 +403,7 @@
     <Button
         android:id="@+id/bPulse"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
@@ -378,7 +419,7 @@
     <Button
         android:id="@+id/bTwinkle"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginRight="4dp"
@@ -394,7 +435,7 @@
     <Button
         android:id="@+id/bStrobeRed"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_marginLeft="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -421,5 +462,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bStrobeRed"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- /ScrollView -->
 
 </android.support.constraint.ConstraintLayout>
