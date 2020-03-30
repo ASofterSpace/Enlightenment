@@ -4,10 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -20,14 +23,16 @@ import android.widget.ToggleButton;
 import com.asofterspace.toolbox.Utils;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.5(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
-    public final static String VERSION_DATE = "29. April 2018 - 28. March 2020";
+    public final static String VERSION_NUMBER = "0.0.1.8(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 30. March 2020";
 
     // if we are including Bene's light in the app, set this to true, and if not, set it to false
     private boolean BENE_VERSION = true;
@@ -186,168 +191,229 @@ public class MainActivity extends AppCompatActivity {
             tBeneTime.setVisibility(View.INVISIBLE);
         }
 
+        View.OnTouchListener touchToClick = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    v.callOnClick();
+                    return true;
+                }
+                return false;
+            }
+        };
+
         Button bOff = findViewById(R.id.bOff);
+        bOff.setOnTouchListener(touchToClick);
         bOff.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bOff);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "off"));
             }
         });
 
         Button bDim = findViewById(R.id.bDim);
+        bDim.setOnTouchListener(touchToClick);
         bDim.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bDim);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "dim"));
             }
         });
 
         Button bMedium = findViewById(R.id.bMedium);
+        bMedium.setOnTouchListener(touchToClick);
         bMedium.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bMedium);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "medium"));
             }
         });
 
         Button bMax = findViewById(R.id.bMax);
+        bMax.setOnTouchListener(touchToClick);
         bMax.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bMax);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "max"));
             }
         });
 
 
         Button bRed = findViewById(R.id.bRed);
+        bRed.setOnTouchListener(touchToClick);
         bRed.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bRed);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 0, 0));
             }
         });
 
         Button bOrange = findViewById(R.id.bOrange);
+        bOrange.setOnTouchListener(touchToClick);
         bOrange.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bOrange);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 128, 0));
             }
         });
 
         Button bYellow = findViewById(R.id.bYellow);
+        bYellow.setOnTouchListener(touchToClick);
         bYellow.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bYellow);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 255, 255, 0));
             }
         });
 
-
         Button bGreen = findViewById(R.id.bGreen);
+        bGreen.setOnTouchListener(touchToClick);
         bGreen.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bGreen);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 255, 0));
             }
         });
 
         Button bTurquoise = findViewById(R.id.bTurquoise);
+        bTurquoise.setOnTouchListener(touchToClick);
         bTurquoise.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bTurquoise);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 255, 255));
             }
         });
 
         Button bBlue = findViewById(R.id.bBlue);
+        bBlue.setOnTouchListener(touchToClick);
         bBlue.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bBlue);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 0, 0, 255));
             }
         });
 
-
         Button bPurple = findViewById(R.id.bPurple);
+        bPurple.setOnTouchListener(touchToClick);
         bPurple.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bPurple);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 179, 0, 255));
             }
         });
 
         Button bBrown = findViewById(R.id.bBrown);
+        bBrown.setOnTouchListener(touchToClick);
         bBrown.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bBrown);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), 128, 64, 0));
             }
         });
 
         Button bRainbow = findViewById(R.id.bRainbow);
+        bRainbow.setOnTouchListener(touchToClick);
         bRainbow.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bRainbow);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "rainbow"));
             }
         });
 
         Button bPulse = findViewById(R.id.bPulse);
+        bPulse.setOnTouchListener(touchToClick);
         bPulse.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bPulse);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "pulsred"));
             }
         });
 
         Button bTwinkle = findViewById(R.id.bTwinkle);
+        bTwinkle.setOnTouchListener(touchToClick);
         bTwinkle.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bTwinkle);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "twinkle"));
             }
         });
 
         Button bStrobeRed = findViewById(R.id.bStrobeRed);
+        bStrobeRed.setOnTouchListener(touchToClick);
         bStrobeRed.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+                showClickAnimation(R.id.bStrobeRed);
                 backendThread.performTask(new BackendTask(getCurrentTargets(), "strobored"));
             }
         });
+    }
+
+    private void showClickAnimation(final int id) {
+
+        findViewById(id).setBackgroundColor(Color.parseColor("#AA00FF"));
+
+        Runnable animationEnder = new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                }
+                findViewById(id).setBackgroundColor(Color.parseColor("#4C0081"));
+            }
+        };
+
+        Thread actualThread = new Thread(animationEnder);
+
+        actualThread.start();
     }
 
     private Set<BackendTarget> getCurrentTargets() {
@@ -397,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return result;
-    };
+    }
 
     private AlarmManager alarmManager;
 
@@ -427,9 +493,9 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent timerIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + timediffInMSec,
-            timerIntent
+                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + timediffInMSec,
+                timerIntent
         );
 
         // immediately turn off the light, as we are going to sleep :)
