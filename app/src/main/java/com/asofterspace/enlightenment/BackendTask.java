@@ -83,7 +83,7 @@ public class BackendTask {
             executeHue();
         }
 
-        if (targets.contains(BackendTarget.BW)) {
+        if (targets.contains(BackendTarget.BW) || targets.contains(BackendTarget.WZ)) {
             executeLED();
         }
     }
@@ -99,8 +99,8 @@ public class BackendTask {
             executeAgainHue();
         }
 
-        if (targets.contains(BackendTarget.BW)) {
-            executeAgainBW();
+        if (targets.contains(BackendTarget.BW) || targets.contains(BackendTarget.WZ)) {
+            executeAgainLED();
         }
     }
 
@@ -401,7 +401,7 @@ public class BackendTask {
         }
     }
 
-    private void executeAgainBW() {
+    private void executeAgainLED() {
 
     }
 

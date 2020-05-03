@@ -34,11 +34,11 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     public final static String PROGRAM_TITLE = "Enlightenment";
-    public final static String VERSION_NUMBER = "0.0.1.9(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
-    public final static String VERSION_DATE = "29. April 2018 - 30. March 2020";
+    public final static String VERSION_NUMBER = "0.0.2.0(" + Utils.TOOLBOX_VERSION_NUMBER + ")";
+    public final static String VERSION_DATE = "29. April 2018 - 3. May 2020";
 
     // if we are including Bene's light in the app, set this to true, and if not, set it to false
-    private boolean BENE_VERSION = false;
+    private boolean BENE_VERSION = true;
 
     private static BackendThread backendThread;
 
